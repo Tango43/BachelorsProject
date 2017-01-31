@@ -1,4 +1,4 @@
-for dir in /mnt/scanned/
+for dir in /mnt/scanned/*
 do
-  cat /mnt/scanned/dir/* | grep -ae '0x00......' | grep -av ':' | awk '{print $NF}
+  cat "$dir"/* | grep -ae '0x00......' | grep -av ':' | awk '{print $NF}'
 done
