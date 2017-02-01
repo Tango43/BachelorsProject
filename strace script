@@ -1,0 +1,5 @@
+#Scans /mnt/ for files and runs exescan.py with import/export flag on found files.
+for file in /mnt/*
+do
+  strace -c "$file"
+done
