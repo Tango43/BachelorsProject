@@ -1,5 +1,6 @@
-#Scans /mnt/ for files and runs exescan.py with import/export flag on found files.
+#Scans /mnt/ for files and runs strace with summarisation flag to scan them for system calls.
 for file in /mnt/*
 do
-  strace -c "$file"
+  sudo chmod 777 "$file"
+  sudo strace -c "$file"
 done
