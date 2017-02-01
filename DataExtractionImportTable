@@ -1,5 +1,5 @@
 #scans /mnt/scanned and greps for scanned previously performed.
 for dir in /mnt/scanned/*
 do
-  cat "$dir"/* | grep -ae '0x00......' | grep -av ':' | awk '{print $NF}'
+  var = "cat "$dir"/* | grep -ae '0x00......' | grep -av ':' | awk '{print $NF}'"
 done
