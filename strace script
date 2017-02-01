@@ -2,5 +2,5 @@
 for file in /mnt/*
 do
   sudo chmod 777 "$file"
-  sudo strace -c "$file"
+  sudo strace -c "$file" | awk -v '{print $4}'
 done
