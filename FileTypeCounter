@@ -3,9 +3,13 @@
 #Change * to files location, does file command on everyfile and counts how many of each type there are
 
 file * > temp.txt
-types = (Zip ASCII MS-DOS data HTML PE32) #Check for more types?
-for type in types
+
+types=(Zip ASCII MS-DOS data HTML PE32)  #Check for more types?
+
+for type in "${types[@]}"
 do
-  grep -c "$type" temp.txt
+  amount="$(grep -c "$type" temp.txt)"
+  echo "$type" "$amount"
 done
+rm temp.txt
 
