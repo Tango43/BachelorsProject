@@ -6,6 +6,6 @@ file * > temp.txt
 types = (Zip ASCII MS-DOS data HTML PE32)
 for type in types
 do
-  grep -c  "$type" temp.txt
+  grep -c "$type" temp.txt
 done
 
