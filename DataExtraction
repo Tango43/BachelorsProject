@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #scans /mnt/scanned and greps for scanned previously performed.
 for dir in /mnt/scanned/*
 do
