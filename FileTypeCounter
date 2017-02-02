@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Change * to files location, does file command on everyfile and counts how many of each type there are
 
 file * > temp.txt
