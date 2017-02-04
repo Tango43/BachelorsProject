@@ -6,6 +6,6 @@ loc = "/example/"
 for file in "$loc"/*
 do
   sudo chmod 777 "$file"
-  sudo strace -c  -o "$file".txt "$file"
+  sudo strace -c -o "$file".txt "$file"
   
 done
