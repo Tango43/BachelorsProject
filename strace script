@@ -1,7 +1,9 @@
 #!/bin/bash
 
 #Scans /mnt/ for files and runs strace with summarisation flag to scan them for system calls.
-for file in /mnt/*
+loc = "/example/"
+
+for file in "$loc"/*
 do
   sudo chmod 777 "$file"
   sudo strace -c  -o "$file".txt "$file"
