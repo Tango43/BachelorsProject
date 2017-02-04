@@ -2,8 +2,10 @@
 
 #Change * to files location, does file command on everyfile and counts how many of each type there are.
 
+loc = /example/     #input location
+
 #Put output of file into temp.txt to avoid running file for every type (File takes quite awhile with a big amount of files).
-file * > temp.txt 
+file "$loc" > temp.txt 
 
 types=(Zip ASCII MS-DOS data HTML PE32)  #Check for more types?
 
