@@ -1,10 +1,12 @@
 #!/bin/bash
 
 #Scans /mnt/ for files and runs strace with summarisation flag to scan them for system calls.
-loc = "/example/"
 
-for file in "$loc"/*
+for file in /mnt/ransom/*
 do
   sudo chmod 777 "$file"
-  sudo pecheck.py "$file" > temp.txt 
+  output="$(sudo pecheck.py "$file")"
+  echo -n malware >> /mnt/data.csv
+  echo -n "," >> /mnt/data.csv
+  echo "$output" | grep -ci -E "\.dll\." >> /mnt/data.csv
 done
