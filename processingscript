@@ -12,11 +12,11 @@ do
   echo -n "$output" | grep -ci -E "\.dll\." | tr -d '\n' >> "$datafile"  #Count Dll numbers and outputs
   #MajorLinkerVersion 
   echo -n "," >> "$datafile"
-  hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//')"
+  hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
   echo -n "ibase=16; "$hexvalue"" | bc >> "$datafile"
   #MajorImageVersion
   echo -n "," >> "$datafile"
-  hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//')"
+  hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
   
 done
