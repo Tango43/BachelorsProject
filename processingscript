@@ -9,7 +9,7 @@ do
   echo -n malware >> "$datafile"  #identifies for each line
   echo -n "," >> "$datafile"  #dataprocessing ","
   echo -n "$output" | grep -ci -E "\.dll\." >> "$datafile"  #Count Dll numbers and outputs
-  hexvalue="$(echo "$output" | grep MajorLinkerVersion | awk '{print $4}' | cut -c 2)"
+  hexvalue="$(echo "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//')"
   echo "ibase=16; "$hexvalue"" | bc >> "$datafile"
 done
 
