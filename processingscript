@@ -14,6 +14,10 @@ do
   echo -n "," >> "$datafile"
   hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//')"
   echo "ibase=16; "$hexvalue"" | bc >> "$datafile"
+  #MajorImageVersion
+  echo -n "," >> "$datafile"
+  hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//')"
+  echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
   
 done
 
