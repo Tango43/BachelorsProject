@@ -8,10 +8,9 @@ do
   output="$(sudo pecheck.py "$file")"
   echo -n malware >> "$datafile"  #identifies for each line
   echo -n "," >> "$datafile"  #dataprocessing ","
-  echo -n "$output"" | grep -ci -E "\.dll\." >> "$datafile"  #Count Dll numbers and outputs
-  hexvalue="$(pecheck.py "$file" | grep "MajorLinkerVersion" | awk '{print $4}')"
-  decivalue="$(printf "%d\n "$hexvalue"" |bc)"
-  echo "$decivalue" >> "$datafile"
+  echo -n "$output" | grep -ci -E "\.dll\." >> "$datafile"  #Count Dll numbers and outputs
+  hexvalue="$(echo "$output" | grep MajorLinkerVersion | awk '{print $4}' | cut -c 2)"
+  echo "ibase=16; "$hexvalue"" | bc >> "$datafile"
 done
 
 sed -i '/,0/ d' /mnt/data.csv  #Removes 0 values from dll, caused trying to PE header check non PE files
