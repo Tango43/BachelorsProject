@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for file in /mnt/ransom/*
+do
+
+  if pecheck.py "$file" | grep --quiet PE /mnt/ransom/*; then
+    echo is PE
+  else
+    echo Is not PE
+  fi
+  
+done
