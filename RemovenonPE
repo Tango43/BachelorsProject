@@ -3,7 +3,7 @@
 for file in /mnt/ransom/*
 do
   output="$(file "$file")"
-  if [ echo "$output" | grep --quiet "PE" ] 
+  if echo "$output" | grep --quiet "PE"
   then
   else
     rm "$file"
