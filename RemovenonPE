@@ -2,11 +2,12 @@
 
 for file in /mnt/ransom/*
 do
-
-  if pecheck.py "$file" | grep --quiet PE /mnt/ransom/*; then
-    echo is PE
+  output="$(file "$file")"
+  if echo "$output" | grep --quiet "PE"; then
+    echo is pe
   else
-    echo Is not PE
+    rm "$file"
   fi
   
 done
+
