@@ -6,7 +6,7 @@ do
   output="$(file "$file")"
   if [ echo "$output" | grep --quiet "PE" ] 
   then
-    cp $file /pefiles/
+    cp "$file" /pefiles/
   fi
 
 done
