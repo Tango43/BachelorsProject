@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+for file in $(find /tmp -name '*.pdf' -or -name '*.doc')
+
+do 
+
+cp $file 
+
+done
