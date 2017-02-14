@@ -1,10 +1,13 @@
 #!/bin/bash
 
 
-for file in $(find /tmp -name '*.pdf' -or -name '*.doc')
-
+for file in $(find / )
 do 
-
-cp $file 
+  output="$(file "$file")"
+  if echo "$output" | grep --quiet "PE"; then
+    echo cp $file /pefiles/
+  else
+    echo nothing
+ 
 
 done
