@@ -4,7 +4,7 @@
 for file in $(find /mnt/ )
 do 
   output="$(file "$file")"
-  if [ echo "$output" | grep --quiet "PE" ] 
+  if echo "$output" | grep --quiet "PE"
   then
     cp "$file" /pefiles/
   fi
