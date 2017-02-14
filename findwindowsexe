@@ -5,7 +5,7 @@ for file in $(find / )
 do 
   output="$(file "$file")"
   if echo "$output" | grep --quiet "PE"; then
-    echo cp $file /pefiles/
+    cp $file /pefiles/
   else
     echo nothing
  
