@@ -4,10 +4,9 @@
 for file in $(find /mnt/ )
 do 
   output="$(file "$file")"
-  if echo "$output" | grep --quiet "PE"; then
+  if [ echo "$output" | grep --quiet "PE" ] 
+  then
     cp $file /pefiles/
-  else
-    echo nothing
   fi
 
 done
