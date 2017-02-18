@@ -1,12 +1,11 @@
 #!/bin/bash
 
 
-for file in $(find /mnt/ )
-do 
-  output="$(file "$file")"
-  if echo "$output" | grep --quiet "PE"
-  then
-    cp "$file" /pefiles/
+for file in $(find /mnt/)
+do
+  if echo "$file" | grep -E "(\.exe)|(\.dll)"; then
+    if file "$file" | grep "PE"; then
+    cp  "$file" /pefiles/
+    fi
   fi
-
 done
