@@ -1,25 +1,25 @@
 #!/bin/bash
 
-datafile="/mnt/data.csv"
+datafile="/mnt/benign.csv"
 
-for file in /mnt/ransom/*
+for file in /mnt/benign/*
 do
   sudo chmod 777 "$file"   #Make sure we have all needed privilges on each file, or just run as root...
-  output="$(sudo pecheck.py "$file")" #make variable for faster processing
+  if output="$(sudo pecheck.py "$file")" ; then #make variable for faster processing
   #DLL count
-  echo -n malware >> "$datafile"  #identifies for each line
-  echo -n "," >> "$datafile"  #dataprocessing ","
-  echo -n "$output" | grep -ci -E "\.dll\." | tr -d '\n' >> "$datafile"  #Count Dll numbers and outputs
+   echo -n benign >> "$datafile"  #identifies for each line
+   echo -n "," >> "$datafile"  #dataprocessing ","
+   echo -n "$output" | grep -ci -E "\.dll\." | tr -d '\n' >> "$datafile"  #Count Dll numbers and outputs
   #MajorLinkerVersion
-  echo -n "," >> "$datafile"
-  hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-  echo "ibase=16; "$hexvalue"" | bc | tr -d '\n' >> "$datafile"
+   echo -n "," >> "$datafile"
+   hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+   echo "ibase=16; "$hexvalue"" | bc | tr -d '\n' >> "$datafile"
   #MajorImageVersion
-  echo -n "," >> "$datafile"
-  hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-  echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
-
+   echo -n "," >> "$datafile"
+   hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+  else
+   echo "$file" failed
+  fi
 done
-
-sed -i '/,0/ d' "$datafile" #Removes 0 values from dll, caused trying to PE header check non PE files
 
