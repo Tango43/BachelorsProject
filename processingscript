@@ -20,23 +20,23 @@ do
   #MajorImageVersion
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
   #SectionNumbers
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep  NumberOfSections | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
   #ImageBase
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep  ImageBase | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
   #SizeofHeapReserve
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep SizeOfHeapReserve | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
   #BaseOfCode
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep BaseOfCode | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
   #.text entropy
    echo -n "," >> "$datafile"
    echo -n "$output" | grep ".text entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
