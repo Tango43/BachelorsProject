@@ -51,7 +51,8 @@ do
    echo -n "$output" | grep ".rsrc entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
   #reloc entropy
    echo -n "," >> "$datafile"
-   echo -n "$output" | grep ".reloc entropy" | awk '{print $3}' >> "$datafile"
+   echo -n "$output" | grep ".reloc entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+   echo -n "\n" >> "$datafile"
   else
    echo "$file" failed
   fi
