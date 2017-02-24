@@ -21,6 +21,10 @@ do
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
    echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+  #SectionNumbers
+   echo -n "," >> "$datafile"
+   hexvalue2="$(echo -n "$output" | grep  NumberOfSections | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
   else
    echo "$file" failed
   fi
