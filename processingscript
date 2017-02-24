@@ -1,12 +1,12 @@
 #!/bin/bash
+target="ransom"
+datafile="/mnt/"$target".csv"
 
-datafile="/mnt/benign.csv"
-
-for file in /mnt/benign/*
+for file in /mnt/"$target"/*
 do
   sudo chmod 777 "$file"   #Make sure we have all needed privilges on each file, or just run as root...
   if output="$(sudo pecheck.py "$file")" ; then #make variable for faster processing
-   echo -n benign >> "$datafile"  #identifies for each line
+   echo -n "$target" >> "$datafile"  #identifies for each line
   #DLL count
    echo -n "," >> "$datafile"  #dataprocessing ","
    echo -n "$output" | grep -ci -E "\.dll\." | tr -d '\n' >> "$datafile"  #Count Dll numbers and outputs
