@@ -25,6 +25,33 @@ do
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep  NumberOfSections | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
    echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+  #ImageBase
+   echo -n "," >> "$datafile"
+   hexvalue2="$(echo -n "$output" | grep  ImageBase | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+  #SizeofHeapReserve
+   echo -n "," >> "$datafile"
+   hexvalue2="$(echo -n "$output" | grep SizeOfHeapReserve | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+  #BaseOfCode
+   echo -n "," >> "$datafile"
+   hexvalue2="$(echo -n "$output" | grep BaseOfCode | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+   echo "ibase=16; "$hexvalue2"" | bc >> "$datafile"
+  #.text entropy
+   echo -n "," >> "$datafile"
+   echo -n "$output" | grep ".text entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+  #.data entropy
+   echo -n "," >> "$datafile"
+   echo -n "$output" | grep ".data entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+  #adata entropy 
+   echo -n "," >> "$datafile"
+   echo -n "$output" | grep "adata entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+  #.rsrc entropy
+   echo -n "," >> "$datafile"
+   echo -n "$output" | grep ".rsrc entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+  #reloc entropy
+   echo -n "," >> "$datafile"
+   echo -n "$output" | grep ".reloc entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
   else
    echo "$file" failed
   fi
