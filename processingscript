@@ -6,10 +6,13 @@ for file in /mnt/benign/*
 do
   sudo chmod 777 "$file"   #Make sure we have all needed privilges on each file, or just run as root...
   if output="$(sudo pecheck.py "$file")" ; then #make variable for faster processing
-  #DLL count
    echo -n benign >> "$datafile"  #identifies for each line
+  #DLL count
    echo -n "," >> "$datafile"  #dataprocessing ","
    echo -n "$output" | grep -ci -E "\.dll\." | tr -d '\n' >> "$datafile"  #Count Dll numbers and outputs
+  #API
+   echo -n "," >> "$datafile"
+   echo -n "$output" | grep -c "API" | tr -d '\n' >> "$datafile"
   #MajorLinkerVersion
    echo -n "," >> "$datafile"
    hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
