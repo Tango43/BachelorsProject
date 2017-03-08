@@ -1,9 +1,13 @@
 #!/bin/bash
+#Define Target folder in /mnt
 target="ransom"
-datafile="/mnt/"$target".csv"
 
+#Features
 entropies=( .text .data adata .rsrc reloc )
 hexoutputs=( MajorLinkerVersion MajorImageVersion NumberOfSections ImageBase SizeOfHeapReserve BaseOfCode )
+
+datafile="/mnt/"$target".csv"
+
 for file in /mnt/"$target"/*
 do
   sudo chmod 777 "$file"   #Make sure we have all needed privilges on each file, or just run as root...
