@@ -3,50 +3,37 @@ target="ransom"
 datafile="/mnt/"$target".csv"
 
 entropies=( .text .data adata .rsrc reloc )
-
+hexoutputs=( MajorLinkerVersion MajorImageVersion NumberOfSections ImageBase SizeOfHeapReserve BaseOfCode )
 for file in /mnt/"$target"/*
 do
   sudo chmod 777 "$file"   #Make sure we have all needed privilges on each file, or just run as root...
   if output="$(sudo pecheck.py "$file")" ; then #make variable for faster processing
-   echo -n "$target" >> "$datafile"  #identifies for each line
-  #DLL count
+  #Identifier
+   echo -n "$target" >> "$datafile"  
+   
+   #DLL count
    echo -n "," >> "$datafile"  #dataprocessing ","
    echo -n "$output" | grep -ci -E "\.dll\." | tr -d '\n' >> "$datafile"  #Count Dll numbers and outputs
-  #API
+   #API
    echo -n "," >> "$datafile"
    echo -n "$output" | grep -c "API" | tr -d '\n' >> "$datafile"
-  #MajorLinkerVersion
-   echo -n "," >> "$datafile"
-   hexvalue="$(echo -n "$output" | grep MajorLinkerVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue"" | bc | tr -d '\n' >> "$datafile"
-  #MajorImageVersion
-   echo -n "," >> "$datafile"
-   hexvalue2="$(echo -n "$output" | grep MajorImageVersion | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
-  #SectionNumbers
-   echo -n "," >> "$datafile"
-   hexvalue2="$(echo -n "$output" | grep  NumberOfSections | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
-  #ImageBase
-   echo -n "," >> "$datafile"
-   hexvalue2="$(echo -n "$output" | grep  ImageBase | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
-  #SizeofHeapReserve
-   echo -n "," >> "$datafile"
-   hexvalue2="$(echo -n "$output" | grep SizeOfHeapReserve | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
-  #BaseOfCode
-   echo -n "," >> "$datafile"
-   hexvalue2="$(echo -n "$output" | grep BaseOfCode | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
-   echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
    
-   #entropy
+   #Hexoutputs
+   for hexoutputer in "${hexoutputs[@]}"
+   do
+    echo -n "," >> "$datafile"
+    hexvalue="$(echo -n "$output" | grep "$hexoutputer" | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
+    echo "ibase=16; "$hexvalue"" | bc | tr -d '\n' >> "$datafile"
+   done
+   
+   #Entropies
    for entropy in "${entropies[@]}"
    do
     echo -n "," >> "$datafile"
     echo -n "$output" | grep ""$entropy" entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
    done
    
+   #End file
    echo -en '\n' >> "$datafile"
   else
    echo "$file" failed
