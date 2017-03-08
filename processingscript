@@ -2,6 +2,8 @@
 target="ransom"
 datafile="/mnt/"$target".csv"
 
+entropies=( .text .data adata .rsrc reloc )
+
 for file in /mnt/"$target"/*
 do
   sudo chmod 777 "$file"   #Make sure we have all needed privilges on each file, or just run as root...
@@ -37,21 +39,14 @@ do
    echo -n "," >> "$datafile"
    hexvalue2="$(echo -n "$output" | grep BaseOfCode | awk '{print $4}' | sed -r 's/^.{2}//' | tr -d '\n')"
    echo "ibase=16; "$hexvalue2"" | bc | tr -d '\n' >> "$datafile"
-  #.text entropy
-   echo -n "," >> "$datafile"
-   echo -n "$output" | grep ".text entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
-  #.data entropy
-   echo -n "," >> "$datafile"
-   echo -n "$output" | grep ".data entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
-  #adata entropy 
-   echo -n "," >> "$datafile"
-   echo -n "$output" | grep "adata entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
-  #.rsrc entropy
-   echo -n "," >> "$datafile"
-   echo -n "$output" | grep ".rsrc entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
-  #reloc entropy
-   echo -n "," >> "$datafile"
-   echo -n "$output" | grep ".reloc entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+   
+   #entropy
+   for entropy in "${entropies[@]}"
+   do
+    echo -n "," >> "$datafile"
+    echo -n "$output" | grep ""$entropy" entropy" | awk '{print $3}' | tr -d '\n' >> "$datafile"
+   done
+   
    echo -en '\n' >> "$datafile"
   else
    echo "$file" failed
