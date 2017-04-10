@@ -4,7 +4,7 @@ target="ransom"
 
 #Features
 entropies=( .text .data adata .rsrc reloc )
-hexoutputs=( MajorLinkerVersion MajorImageVersion NumberOfSections ImageBase SizeOfHeapReserve BaseOfCode  MinorLinkerVersion MinorOperatingSystemVersion MinorImageVersion MinorSubsystemVersion SizeOfCode SizeOfInitializedData SizeOfUninitializedData AddressOfEntryPoint BaseOfCode BaseOfData ImageBase SectionAlignment FileAlignment SizeOfImage SizeOfHeaders MajorSubsystemVersion MinorSubsystemVersion SizeOfStackReserve SizeOfStackCommit SizeOfHeapReserve SizeOfHeapCommit)
+hexoutputs=( MajorLinkerVersion MajorImageVersion NumberOfSections ImageBase SizeOfHeapReserve BaseOfCode  MinorLinkerVersion MinorOperatingSystemVersion MinorImageVersion MinorSubsystemVersion SizeOfCode SizeOfInitializedData SizeOfUninitializedData AddressOfEntryPoint BaseOfData ImageBase SectionAlignment FileAlignment SizeOfImage SizeOfHeaders MajorSubsystemVersion MinorSubsystemVersion SizeOfStackReserve SizeOfStackCommit SizeOfHeapReserve SizeOfHeapCommit)
 
 datafile="/mnt/"$target".csv"
 
